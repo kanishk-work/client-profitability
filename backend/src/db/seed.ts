@@ -16,6 +16,13 @@ async function seed() {
   const revenueRepo = AppDataSource.getRepository(ClientMonthlyRevenue);
   const teRepo = AppDataSource.getRepository(TimeEntry);
 
+  // To check if already seeded and exit
+  const existingRoles = await roleRepo.count();
+  if (existingRoles > 0) {
+    console.log("Seed already applied, skipping.");
+    process.exit(0);
+  }
+
   // Roles
   const roles = await roleRepo.save([
     { name: "Designer", monthly_salary: 5000, productive_hours_per_month: 160 },

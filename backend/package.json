@@ -9,6 +9,8 @@
     "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/db/data-source.ts",
     "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/db/data-source.ts",
     "seed": "ts-node src/db/seed.ts",
+    "migration:run:prod": "npx typeorm-ts-node-commonjs migration:run -d dist/db/data-source.js",
+    "seed:prod": "node dist/db/seed.js",
     "test": "jest --runInBand"
   },
   "keywords": [],
@@ -41,9 +43,13 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testMatch": ["**/test/**/*.spec.ts"],
-    "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/src/$1"
+    "testMatch": [
+      "**/test/**/*.spec.ts"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.test.json"
+      }
     }
   }
 }
